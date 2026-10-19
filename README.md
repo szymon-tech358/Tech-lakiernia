@@ -7,7 +7,7 @@ Wszystkie malowania w jednym miejscu – zawsze aktualne, zawsze na czasie!
 
 ## ⬇️ Jak mieć szybko pod linkiem
 
-Wejść `**https://szymon-tech358.github.io/Tech-lakiernia/**
+Wejść na stronę: **https://szymon-tech358.github.io/Tech-lakiernia/**
 > Nie ma instalacji – program działa od razu. Możesz go mieć zawsze pod ręką na przeglądarce.
 
 ---
