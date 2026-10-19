@@ -5,19 +5,14 @@ Wszystkie malowania w jednym miejscu – zawsze aktualne, zawsze na czasie!
 
 ---
 
-## ⬇️ Jak pobrać aplikację
+## ⬇️ Jak mieć szybko pod linkiem
 
-Pobierz `.exe` z **[LINK DO POBRANIA – wstaw tu MediaFire/Google Drive]**
-
-1. Pobierz plik
-2. Uruchom `.exe` (Windows 10/11)
-3. Gotowe! Aplikacja sama zaktualizuje się do najnowszej wersji przy każdym uruchomieniu – nic nie musisz robić 🎉
-
-> Nie ma instalacji – program działa od razu. Możesz go mieć zawsze pod ręką na pulpicie.
+Wejść `**https://szymon-tech358.github.io/Tech-lakiernia/**
+> Nie ma instalacji – program działa od razu. Możesz go mieć zawsze pod ręką na przeglądarce.
 
 ---
 
-## 🎨 Co znajdziesz w aplikacji
+## 🎨 Co znajdziesz na stronie
 
 - 🖼️ **Galeria malowań** – 4 okienka w rzędzie, kliknij, żeby zobaczyć na pełnym ekranie
 - 🔎 **Wyszukiwarka** – szukaj po przewoźniku, mieście lub modelu (całe Podkarpacie!)
@@ -84,7 +79,7 @@ O: Zdjęcia robione są w OpenOMSI – dzięki temu są ostre i ładne 📸
 
 ## 📅 Changelog
 
-**2026-10-19** – Pierwsze publiczne wydanie aplikacji! 🎉
+**2026-10-19** – Pierwsze publiczne wydanie przeglądrki! 🎉
 
 ---
 
