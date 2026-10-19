@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moje malowania OMSI 2 – Podkarpacie</title>
+<style>
+  :root{
+    --bg:#1e1f22; --bg2:#2b2d31; --bg3:#313338; --accent:#5865f2;
+    --red:#ed4245; --yellow:#fee75c; --green:#57f287; --text:#dbdee1; --muted:#949ba4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+  body{background:var(--bg);color:var(--text);min-height:100vh}
+
+  /* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:50;background:var(--bg3);border-bottom:1px solid #111;
+    padding:12px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  header h1{font-size:1.1rem;display:flex;align-items:center;gap:8px}
+  header h1 span{font-size:.75rem;color:var(--muted);font-weight:400}
+  .search{flex:1;min-width:220px;display:flex;align-items:center;background:var(--bg);
+    border-radius:8px;padding:8px 12px;border:1px solid #111}
+  .search input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:.95rem}
+
+  /* ===== FILTRY ===== */
+  .filters{background:var(--bg2);padding:10px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .tab{border:none;border-radius:6px;padding:7px 14px;cursor:pointer;font-weight:600;
+    font-size:.85rem;background:var(--bg);color:var(--muted);transition:.15s}
+  .tab:hover{color:var(--text)}
+  .tab.active.r{background:var(--red);color:#fff}
+  .tab.active.pf{background:var(--yellow);color:#111}
+  .tab.active.f{background:var(--green);color:#111}
+  .tab.active.all{background:var(--accent);color:#fff}
+  select{background:var(--bg);color:var(--text);border:1px solid #111;border-radius:6px;
+    padding:7px 10px;font-size:.85rem;cursor:pointer}
+  .count{margin-left:auto;color:var(--muted);font-size:.85rem}
+
+  /* ===== REKLAMA DISCORDA ===== */
+  .discord-banner{max-width:1800px;margin:16px auto 0;padding:0 20px}
+  .discord-banner a{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#5865f2,#4752c4);
+    border-radius:12px;padding:14px 18px;text-decoration:none;color:#fff;
+    box-shadow:0 4px 20px rgba(88,101,242,.35);transition:transform .15s}
+  .discord-banner a:hover{transform:scale(1.01)}
+  .discord-banner .logo{font-size:2rem}
+  .discord-banner b{font-size:1.05rem;display:block}
+  .discord-banner small{color:#dfe3ff}
+  .discord-banner .join{margin-left:auto;background:#fff;color:#5865f2;font-weight:700;
+    padding:10px 18px;border-radius:8px;font-size:.9rem;white-space:nowrap}
+
+  /* ===== SIATKA 4 OKIENKA ===== */
+  main{padding:20px;max-width:1800px;margin:0 auto}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:500px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--bg2);border-radius:10px;overflow:hidden;border:1px solid #111;
+    cursor:pointer;transition:transform .15s, box-shadow .15s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  .card .imgwrap{position:relative;aspect-ratio:16/10;background:#111;overflow:hidden}
+  .card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+  .card:hover img{transform:scale(1.05)}
+  .badge{position:absolute;top:8px;left:8px;font-size:.7rem;font-weight:700;
+    padding:3px 8px;border-radius:5px;color:#fff}
+  .badge.r{background:var(--red)} .badge.pf{background:#c9a800;color:#111} .badge.f{background:#2ea35c}
+  .price{position:absolute;top:8px;right:8px;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:5px}
+  .price.free{background:#2ea35c;color:#fff} .price.paid{background:#c9a800;color:#111} .price.vip{background:#9b59b6;color:#fff}
+  .card .info{padding:10px 12px;flex:1;display:flex;flex-direction:column;gap:4px}
+  .card .info h3{font-size:.95rem}
+  .card .info .meta{font-size:.78rem;color:var(--muted)}
+  .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+  .tag{font-size:.68rem;background:var(--bg3);border-radius:4px;padding:2px 6px;color:var(--muted)}
+
+  /* ===== LIGHTBOX – pełny ekran ===== */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:100;
+    flex-direction:column}
+  .lightbox.open{display:flex}
+  .lb-top{display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--bg3)}
+  .lb-top h2{font-size:1rem;flex:1}
+  .lb-close{background:var(--red);color:#fff;border:none;border-radius:8px;
+    padding:8px 16px;cursor:pointer;font-weight:700}
+  .lb-body{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0}
+  .lb-body img{max-width:92%;max-height:100%;object-fit:contain;border-radius:8px}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);
+    border:none;color:#fff;font-size:2rem;width:52px;height:52px;border-radius:50%;
+    cursor:pointer;transition:.15s}
+  .lb-nav:hover{background:var(--accent)}
+  .lb-prev{left:16px} .lb-next{right:16px}
+  .lb-counter{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+    background:rgba(0,0,0,.6);padding:4px 14px;border-radius:20px;font-size:.85rem}
+  .lb-bottom{padding:14px 20px;background:var(--bg3);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .lb-bottom .meta{flex:1;min-width:200px;font-size:.9rem}
+  .btn{border:none;border-radius:8px;padding:10px 18px;cursor:pointer;font-weight:700;
+    font-size:.9rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+  .btn:hover{filter:brightness(1.15)}
+  .btn.model{background:#3ba55d;color:#fff}
+  .btn.model.buy{background:#c9a800;color:#111}
+  .btn.livery{background:var(--accent);color:#fff}
+  .btn.livery.buy{background:#9b59b6;color:#fff}
+  .btn.discord{background:#5865f2;color:#fff}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0;font-size:1.1rem}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🚌 Moje malowania OMSI 2 <span>– Podkarpacie</span></h1>
+  <div class="search">🔎 <input id="search" type="text" placeholder="Szukaj: przewoźnik, miasto, model… (całe Podkarpacie!)"></div>
+</header>
+
+<div class="filters">
+  <button class="tab active all" data-cat="all">Wszystkie</button>
+  <button class="tab r" data-cat="R">[R] Realistyczne</button>
+  <button class="tab pf" data-cat="PF">[PF] Półfikcyjne</button>
+  <button class="tab f" data-cat="F">[F] Fikcyjne</button>
+  <select id="region"><option value="">🗺️ Całe Podkarpacie</option></select>
+  <span class="count" id="count"></span>
+</div>
+
+<!-- 🎯 REKLAMA DISCORDA – podmień link w DISCORD_URL na zaproszenie do swojego serwera -->
+<div class="discord-banner"><a id="discordBanner" href="#" target="_blank">
+  <span class="logo">💬</span>
+  <span><b>Dołącz do naszego Discorda!</b>
+  <small>Pobierz malowania wcześniej, rozmawiaj o OMSI 2 i bierz udział w konkursach 🎨</small></span>
+  <span class="join">Dołącz teraz →</span>
+</a></div>
+
+<main><div class="grid" id="grid"></div></main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-top">
+    <h2 id="lbTitle"></h2>
+    <button class="lb-close" onclick="closeLB()">✕ Zamknij (Esc)</button>
+  </div>
+  <div class="lb-body">
+    <button class="lb-nav lb-prev" onclick="navLB(-1)">‹</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lb-nav lb-next" onclick="navLB(1)">›</button>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+  <div class="lb-bottom">
+    <div class="meta" id="lbMeta"></div>
+    <div id="lbBtns" style="display:flex;flex-wrap:wrap;gap:10px"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   KONFIGURACJA – podmień na swoje!
+========================================================= */
+const DATA_URL = "https://TWOJA-NAZWA.github.io/omsi-malowania/malowania.json";
+const DISCORD_URL = "https://discord.gg/TWOJ-LINK-ZAPROSZENIA";   // ← link do Twojego Discorda
+
+/* Awaryjne dane, gdyby nie było internetu */
+const FALLBACK = [
+  {
+    "title": "Setra S221 UL V1.0 – Stalowa Wola",
+    "cat": "PF",
+    "region": "Stalowa Wola",
+    "model": "Setra S221 UL (płatny)",
+    "tags": [
+      "PA",
+      "PM",
+      "Stalowa Wola",
+      "Setra"
+    ],
+    "date": "2026-17-10",
+    "img": "https://i.imgur.com/fiEbXdN.png",
+    "images": [
+      "https://i.imgur.com/fiEbXdN.png",
+      "https://i.imgur.com/nQF21Tu.png",
+      "https://i.imgur.com/r9EMPjb.png"
+    ],
+    "modelUrl": "https://strefa-omsi.pl/Waterk-Add-on-City-Regionbus-200-Series--29598",
+    "liveryUrl": "https://www.mediafire.com/file/ro318pds0o8ugxf/City_RegionBus_S200-series.rar/file"
+  },
+  {
+    "title": "MAN Lion's City – MPK Rzeszów [R]",
+    "cat": "R",
+    "region": "Rzeszów",
+    "model": "MAN Lion's City (darmowy)",
+    "tags": [
+      "DA",
+      "DM",
+      "Rzeszów",
+      "MPK"
+    ],
+    "date": "2026-10-10",
+    "img": "https://i.imgur.com/Przyklad1.jpg",
+    "images": [
+      "https://i.imgur.com/Przyklad1.jpg",
+      "https://i.imgur.com/Przyklad2.jpg"
+    ],
+    "modelUrl": "https://strefa-omsi.pl/",
+    "liveryUrl": "https://twoj-link-pobierania"
+  },
+  {
+    "title": "SOR CN12 (2011+) – Stalowa Wola",
+    "cat": "R",
+    "region": "Stalowa Wola",
+    "model": "SOR CN12 (2011+) (płatny)",
+    "tags": [
+      "PA",
+      "PM",
+      "SOR",
+      "Stalowa Wola"
+    ],
+    "date": "2026-10-19",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_KUPNA_MODELU",
+    "liveryUrl": "LINK_DO_KUPNA_VIP"
+  },
+  {
+    "title": "SOR C12 (2011+) Wersja A – Stalowa Wola",
+    "cat": "R",
+    "region": "Stalowa Wola",
+    "model": "SOR C12 (2011+) Wersja A (płatny)",
+    "tags": [
+      "PA",
+      "PM",
+      "SOR",
+      "Stalowa Wola"
+    ],
+    "date": "2026-10-19",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_KUPNA_MODELU",
+    "liveryUrl": "LINK_DO_KUPNA_VIP"
+  },
+  {
+    "title": "Malowanie SOR CN12 – Stalowa Wola",
+    "cat": "R",
+    "region": "Stalowa Wola",
+    "model": "SOR CN12 (darmowy)",
+    "tags": [
+      "DA",
+      "DM",
+      "SOR",
+      "Stalowa Wola"
+    ],
+    "date": "2026-10-19",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_MODELU",
+    "liveryUrl": "LINK_DO_POBRANIA"
+  },
+  {
+    "title": "Jelcz T120 PreFL – Rzeszów",
+    "cat": "R",
+    "region": "Rzeszów",
+    "model": "Jelcz T120 PreFL (darmowy)",
+    "tags": [
+      "DA",
+      "DM",
+      "Jelcz",
+      "Rzeszów"
+    ],
+    "date": "2026-10-19",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_MODELU",
+    "liveryUrl": "LINK_DO_POBRANIA"
+  },
+  {
+    "title": "Setra S215 UL – Stalowa Wola",
+    "cat": "R",
+    "region": "Stalowa Wola",
+    "model": "Setra S215 UL (darmowy)",
+    "tags": [
+      "DA",
+      "DM",
+      "Setra",
+      "Stalowa Wola"
+    ],
+    "date": "2026-10-19",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_MODELU",
+    "liveryUrl": "LINK_DO_POBRANIA"
+  }
+];
+
+let MALOWANIA = [];
+
+const REGIONS = ["Rzeszów","Przemyśl","Stalowa Wola","Mielec","Tarnobrzeg","Krosno","Sanok",
+  "Jasło","Łańcut","Leżajsk","Nisko","Dębica","Ropczyce","Kolbuszowa","Brzozów",
+  "Przeworsk","Jarosław","Ustrzyki Dolne","Boguchwała","Radymno"];
+const CATNAMES = {R:"Realistyczne", PF:"Półfikcyjne", F:"Fikcyjne"};
+let activeCat = "all", activeRegion = "", query = "";
+let lb = {items:[], idx:0, data:null};
+
+async function tryFetch(url){
+  const r = await fetch(url + (url.includes("?")?"&":"?") + "v=" + Date.now(), {cache:"no-store"});
+  if(!r.ok) throw new Error(r.status);
+  return r.json();
+}
+async function loadData(){
+  try{
+    // 1) dane z GitHuba (dla użytkowników .exe – zawsze świeże)
+    MALOWANIA = await tryFetch(DATA_URL);
+  }catch(e){
+    try{
+      // 2) lokalny plik malowania.json (test na kompie / python -m http.server)
+      MALOWANIA = await tryFetch("malowania.json");
+    }catch(e2){
+      // 3) dane wbudowane w stronę – zawsze coś pokaże
+      MALOWANIA = FALLBACK;
+    }
+  }
+  buildRegionSelect();
+  render();
+}
+
+function buildRegionSelect(){
+  const sel = document.getElementById('region');
+  sel.innerHTML = '<option value="">🗺️ Całe Podkarpacie</option>';
+  [...new Set([...REGIONS, ...MALOWANIA.map(m=>m.region)])].sort().forEach(r=>{
+    const o = document.createElement('option'); o.value = r; o.textContent = "🗺️ " + r; sel.appendChild(o);
+  });
+}
+
+/* ====== PRZYCISKI ZALEŻNE OD TAGÓW ====== */
+function priceBadge(m){
+  if(m.tags.includes("PM")) return '<span class="price vip">💜 VIP</span>';
+  if(m.tags.includes("PA")) return '<span class="price paid">💰 Płatny model</span>';
+  return '<span class="price free">🆓 Darmowe</span>';
+}
+function actionButtons(m){
+  let html = '';
+  // MODEL AUTOBUSU
+  if(m.tags.includes("DA"))
+    html += `<a class="btn model" href="${m.modelUrl}" target="_blank">🚌 Pobierz model autobusu (darmowy)</a>`;
+  else if(m.tags.includes("PA"))
+    html += `<a class="btn model buy" href="${m.modelUrl}" target="_blank">🛒 Kup model autobusu</a>`;
+  // MALOWANIE
+  if(m.tags.includes("DM"))
+    html += `<a class="btn livery" href="${m.liveryUrl}" target="_blank">🎨 Pobierz malowanie (darmowe)</a>`;
+  else if(m.tags.includes("PM"))
+    html += `<a class="btn livery buy" href="${m.liveryUrl}" target="_blank">💜 Kup malowanie (VIP)</a>`;
+  // DISCORD
+  html += `<a class="btn discord" href="${DISCORD_URL}" target="_blank">💬 Discord</a>`;
+  return html;
+}
+
+function render(){
+  const grid = document.getElementById('grid');
+  const q = query.toLowerCase();
+  const list = MALOWANIA.filter(m=>{
+    if(activeCat!=="all" && m.cat!==activeCat) return false;
+    if(activeRegion && m.region!==activeRegion) return false;
+    if(q){
+      const hay = (m.title+" "+m.model+" "+m.region+" "+m.tags.join(" ")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  }).sort((a,b)=> b.date.localeCompare(a.date));
+
+  document.getElementById('count').textContent = "Znaleziono: " + list.length;
+  if(!list.length){ grid.innerHTML = '<div class="empty">😶 Nic nie znaleziono…</div>'; return; }
+
+  grid.innerHTML = list.map(m=>{
+    const real = MALOWANIA.indexOf(m);
+    return `<div class="card" onclick="openLB(${real},0)">
+      <div class="imgwrap">
+        <span class="badge ${m.cat.toLowerCase()}">[${m.cat}] ${CATNAMES[m.cat]}</span>
+        ${priceBadge(m)}
+        <img src="${m.img}" loading="lazy" alt="${m.title}" onerror="this.src='https://placehold.co/640x400/2b2d31/dbdee1?text=OMSI+2'">
+      </div>
+      <div class="info">
+        <h3>${m.title}</h3>
+        <div class="meta">🗺️ ${m.region} &nbsp;•&nbsp; 📅 ${m.date}</div>
+        <div class="tags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ===== LIGHTBOX ===== */
+function openLB(mi, ii){
+  const m = MALOWANIA[mi];
+  lb = {items: m.images.length ? m.images : [m.img], idx: ii, data: m};
+  document.getElementById('lbTitle').textContent = m.title;
+  document.getElementById('lbMeta').innerHTML =
+    `<b>[${m.cat}] ${CATNAMES[m.cat]}</b> • ${m.model} • 🗺️ ${m.region} • 📅 ${m.date} • ${m.tags.map(t=>`#${t}`).join(' ')}`;
+  document.getElementById('lbBtns').innerHTML = actionButtons(m);
+  showImg();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function showImg(){
+  document.getElementById('lbImg').src = lb.items[lb.idx];
+  document.getElementById('lbCounter').textContent = (lb.idx+1) + " / " + lb.items.length;
+}
+function navLB(d){ lb.idx = (lb.idx + d + lb.items.length) % lb.items.length; showImg(); }
+function closeLB(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ===== EVENTY ===== */
+document.getElementById('discordBanner').href = DISCORD_URL;
+document.getElementById('search').addEventListener('input', e=>{ query = e.target.value; render(); });
+document.getElementById('region').addEventListener('change', e=>{ activeRegion = e.target.value; render(); });
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click', ()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); activeCat = t.dataset.cat; render();
+}));
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLB();
+  if(e.key==='ArrowLeft') navLB(-1);
+  if(e.key==='ArrowRight') navLB(1);
+});
+document.getElementById('lbImg').addEventListener('click', ()=>navLB(1));
+
+loadData();
+/* 🔄 auto-odświeżanie co 60 s */
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>

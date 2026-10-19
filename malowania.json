@@ -1,0 +1,108 @@
+[
+  {
+    "title": "Setra S221 UL V1.0 – Stalowa Wola",
+    "cat": "PF",
+    "region": "Stalowa Wola",
+    "model": "Setra S221 UL (płatny)",
+    "tags": [
+      "PA",
+      "PM",
+      "Stalowa Wola",
+      "Setra"
+    ],
+    "date": "2026-17-10",
+    "img": "https://i.imgur.com/fiEbXdN.png",
+    "images": [
+      "https://i.imgur.com/fiEbXdN.png",
+      "https://i.imgur.com/nQF21Tu.png",
+      "https://i.imgur.com/r9EMPjb.png"
+    ],
+    "modelUrl": "https://strefa-omsi.pl/Waterk-Add-on-City-Regionbus-200-Series--29598",
+    "liveryUrl": "https://www.mediafire.com/file/ro318pds0o8ugxf/City_RegionBus_S200-series.rar/file"
+  },
+  {
+    "title": "MAN Lion's City – MPK Rzeszów [R]",
+    "cat": "R",
+    "region": "Rzeszów",
+    "model": "MAN Lion's City (darmowy)",
+    "tags": [
+      "DA",
+      "DM",
+      "Rzeszów",
+      "MPK"
+    ],
+    "date": "2026-10-10",
+    "img": "https://i.imgur.com/Przyklad1.jpg",
+    "images": [
+      "https://i.imgur.com/Przyklad1.jpg",
+      "https://i.imgur.com/Przyklad2.jpg"
+    ],
+    "modelUrl": "https://strefa-omsi.pl/",
+    "liveryUrl": "https://twoj-link-pobierania"
+  },
+  {
+    "title": "PKS Stalowa Wola – AUTOSAN H10",
+    "cat": "R",
+    "region": "Stalowa Wola",
+    "model": "Autosan H10 (darmowy)",
+    "tags": [
+      "DA",
+      "DM",
+      "PKS",
+      "Stalowa Wola",
+      "Autosan"
+    ],
+    "date": "2026-10-18",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_MODELU",
+    "liveryUrl": "LINK_DO_POBRANIA"
+  },
+  {
+    "title": "PKS Stalowa Wola – JELCZ M121",
+    "cat": "PF",
+    "region": "Stalowa Wola",
+    "model": "Jelcz M121 (płatny)",
+    "tags": [
+      "PA",
+      "PM",
+      "PKS",
+      "Stalowa Wola",
+      "Jelcz"
+    ],
+    "date": "2026-10-18",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_MODELU",
+    "liveryUrl": "LINK_DO_KUPNA_VIP"
+  },
+  {
+    "title": "Rzeszów – SOLARIS URBINO 12",
+    "cat": "F",
+    "region": "Rzeszów",
+    "model": "Solaris Urbino 12 (darmowy)",
+    "tags": [
+      "DA",
+      "DM",
+      "Rzeszów",
+      "Solaris"
+    ],
+    "date": "2026-10-18",
+    "img": "LINK_OKLADKI.jpg",
+    "images": [
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
+    ],
+    "modelUrl": "LINK_DO_MODELU",
+    "liveryUrl": "LINK_DO_POBRANIA"
+  }
+]
