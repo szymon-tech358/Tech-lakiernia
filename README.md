@@ -57,7 +57,7 @@ Pobierz `.exe` z **[LINK DO POBRANIA – wstaw tu MediaFire/Google Drive]**
 ## 💬 Discord
 
 Dołącz do naszej społeczności!
-👉 **[LINK DO DISCORDA – wstaw tu zaproszenie]**
+👉 **https://discord.gg/MBTaed9db4**
 
 Na serwerze znajdziesz:
 - wcześniejszy dostęp do nowych malowań
