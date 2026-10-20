@@ -5,9 +5,9 @@ Wszystkie malowania w jednym miejscu – zawsze aktualne, zawsze na czasie!
 
 ---
 
-## ⬇️ Jak mieć szybko pod linkiem
+## ⬇️ Jak mieć szybko pod linkiem/aplikcję
 
-Wejść na stronę: **https://szymon-tech358.github.io/Tech-lakiernia/**
+Wejść na stronę/aplikcję: **https://szymon-tech358.github.io/Tech-lakiernia/**  lub **Tech-lakiernia-windows**
 > Nie ma instalacji – program działa od razu. Możesz go mieć zawsze pod ręką na przeglądarce.
 
 ---
@@ -80,7 +80,9 @@ O: Zdjęcia robione są w OpenOMSI – dzięki temu są ostre i ładne 📸
 ## 📅 Changelog
 
 **2026-10-19** – Pierwsze publiczne wydanie przeglądrki! 🎉
+**2026-10-20** – Pierwsze publiczne wydanie aplikacji! 🎉
 
 ---
 
 🎨 *Malowania tworzone z pasji do OMSI 2 i Podkarpacia.*
+
