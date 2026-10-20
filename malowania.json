@@ -135,14 +135,13 @@
       "Setra",
       "Stalowa Wola"
     ],
-    "date": "2026-10-19",
-    "img": "LINK_OKLADKI.jpg",
+    "date": "2026-10-04",
+    "img": "https://i.imgur.com/B28yUOF.png",
     "images": [
-      "LINK1.jpg",
-      "LINK2.jpg",
-      "LINK3.jpg"
+      "https://i.imgur.com/B28yUOF.png",
+      "https://i.imgur.com/TqchtZr.png"
     ],
-    "modelUrl": "LINK_DO_MODELU",
-    "liveryUrl": "LINK_DO_POBRANIA"
+    "modelUrl": "https://strefa-omsi.pl/Watek-OMSI-1-2-Setra-S-215-UL-v1-2-Modded--4543",
+    "liveryUrl": "https://www.mediafire.com/file/02ug38vgumgxjce/Setra_215UL.rar/file"
   }
 ]
