@@ -6,106 +6,166 @@
 <title>Tech lakiernia OMSI 2 – Podkarpacie</title>
 <style>
   :root{
-    --bg:#1e1f22; --bg2:#2b2d31; --bg3:#313338; --accent:#5865f2;
-    --red:#ed4245; --yellow:#fee75c; --green:#57f287; --text:#dbdee1; --muted:#949ba4;
+    --accent:#5865f2; --red:#ed4245; --yellow:#fee75c; --green:#57f287;
+    --r-bg:#ed4245; --pf-bg:#e3b800; --f-bg:#3ba55d;
+    --tr:.25s cubic-bezier(.4,0,.2,1);
   }
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
-  body{background:var(--bg);color:var(--text);min-height:100vh}
+  body[data-theme="dark"]{
+    --bg:#151619; --bg2:#1e2024; --bg3:#26282e; --card:#22242a;
+    --text:#e8eaed; --muted:#9aa0a8; --border:#2e3138;
+    --glass:rgba(30,32,36,.75); --shadow:0 8px 32px rgba(0,0,0,.45);
+    --glow:rgba(88,101,242,.25);
+  }
+  body[data-theme="light"]{
+    --bg:#f4f5f7; --bg2:#e9ebef; --bg3:#ffffff; --card:#ffffff;
+    --text:#1a1c20; --muted:#5f6670; --border:#d8dce3;
+    --glass:rgba(255,255,255,.78); --shadow:0 8px 32px rgba(30,40,80,.12);
+    --glow:rgba(88,101,242,.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,Arial,sans-serif}
+  body{background:var(--bg);color:var(--text);min-height:100vh;transition:background .4s,color .4s}
 
-  /* ===== HEADER ===== */
-  header{position:sticky;top:0;z-index:50;background:var(--bg3);border-bottom:1px solid #111;
-    padding:12px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-  header h1{font-size:1.1rem;display:flex;align-items:center;gap:8px}
-  header h1 span{font-size:.75rem;color:var(--muted);font-weight:400}
-  .search{flex:1;min-width:220px;display:flex;align-items:center;background:var(--bg);
-    border-radius:8px;padding:8px 12px;border:1px solid #111}
+  /* ===== HEADER – glassmorphism ===== */
+  header{position:sticky;top:0;z-index:50;background:var(--glass);backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);
+    padding:12px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;animation:slideDown .5s ease}
+  @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+  .brand{display:flex;align-items:center;gap:10px;font-size:1.1rem;font-weight:700}
+  .brand img{width:40px;height:40px;border-radius:12px;box-shadow:0 0 16px var(--glow);animation:pulse 3s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 10px var(--glow)}50%{box-shadow:0 0 22px var(--glow)}}
+  .brand span{font-size:.72rem;color:var(--muted);font-weight:400}
+  .search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;background:var(--bg2);
+    border-radius:12px;padding:9px 14px;border:1px solid var(--border);transition:var(--tr)}
+  .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--glow)}
   .search input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:.95rem}
 
+  /* ===== PRZEŁĄCZNIK TEMATU ===== */
+  .theme-btn{border:1px solid var(--border);background:var(--bg2);color:var(--text);cursor:pointer;
+    border-radius:12px;padding:8px 12px;font-size:1rem;transition:var(--tr);display:flex;align-items:center;gap:6px}
+  .theme-btn:hover{border-color:var(--accent);transform:scale(1.05)}
+  .theme-btn small{font-size:.7rem;color:var(--muted)}
+
   /* ===== FILTRY ===== */
-  .filters{background:var(--bg2);padding:10px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  .tab{border:none;border-radius:6px;padding:7px 14px;cursor:pointer;font-weight:600;
-    font-size:.85rem;background:var(--bg);color:var(--muted);transition:.15s}
-  .tab:hover{color:var(--text)}
-  .tab.active.r{background:var(--red);color:#fff}
-  .tab.active.pf{background:var(--yellow);color:#111}
-  .tab.active.f{background:var(--green);color:#111}
+  .filters{background:var(--bg2);padding:10px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    position:sticky;top:65px;z-index:40;border-bottom:1px solid var(--border)}
+  .tab{border:1px solid transparent;border-radius:20px;padding:7px 16px;cursor:pointer;font-weight:600;
+    font-size:.85rem;background:var(--bg);color:var(--muted);transition:all var(--tr)}
+  .tab:hover{color:var(--text);transform:translateY(-2px)}
+  .tab.active{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .tab.active.r{background:var(--r-bg);color:#fff}
+  .tab.active.pf{background:var(--pf-bg);color:#111}
+  .tab.active.f{background:var(--f-bg);color:#fff}
   .tab.active.all{background:var(--accent);color:#fff}
-  select{background:var(--bg);color:var(--text);border:1px solid #111;border-radius:6px;
-    padding:7px 10px;font-size:.85rem;cursor:pointer}
+  select{background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:10px;
+    padding:7px 10px;font-size:.85rem;cursor:pointer;transition:var(--tr)}
+  select:focus{border-color:var(--accent);outline:none}
   .count{margin-left:auto;color:var(--muted);font-size:.85rem}
 
-  /* ===== REKLAMA DISCORDA ===== */
-  .discord-banner{max-width:1800px;margin:16px auto 0;padding:0 20px}
-  .discord-banner a{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#5865f2,#4752c4);
-    border-radius:12px;padding:14px 18px;text-decoration:none;color:#fff;
-    box-shadow:0 4px 20px rgba(88,101,242,.35);transition:transform .15s}
-  .discord-banner a:hover{transform:scale(1.01)}
-  .discord-banner .logo{font-size:2rem}
+  /* ===== REKLAMA DISCORDA – animowany gradient ===== */
+  .discord-banner{max-width:1800px;margin:16px auto 0;padding:0 20px;animation:fadeUp .6s ease}
+  .discord-banner a{position:relative;display:flex;align-items:center;gap:14px;border-radius:14px;
+    padding:16px 20px;text-decoration:none;color:#fff;overflow:hidden;transition:transform .2s;
+    background:linear-gradient(120deg,#5865f2,#4752c4,#7b5cf0,#4752c4);background-size:300% 300%;
+    animation:gradientMove 8s ease infinite;box-shadow:0 6px 24px rgba(88,101,242,.4)}
+  @keyframes gradientMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .discord-banner a:hover{transform:scale(1.015)}
+  .discord-banner .logo{font-size:2rem;animation:wiggle 2.5s ease-in-out infinite}
+  @keyframes wiggle{0%,100%{transform:rotate(0)}10%{transform:rotate(-12deg)}20%{transform:rotate(10deg)}30%{transform:rotate(0)}}
   .discord-banner b{font-size:1.05rem;display:block}
   .discord-banner small{color:#dfe3ff}
   .discord-banner .join{margin-left:auto;background:#fff;color:#5865f2;font-weight:700;
-    padding:10px 18px;border-radius:8px;font-size:.9rem;white-space:nowrap}
+    padding:10px 20px;border-radius:10px;font-size:.9rem;white-space:nowrap;transition:var(--tr)}
+  .discord-banner a:hover .join{transform:scale(1.08)}
 
   /* ===== SIATKA 4 OKIENKA ===== */
   main{padding:20px;max-width:1800px;margin:0 auto}
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   @media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:500px){.grid{grid-template-columns:1fr}}
 
-  .card{background:var(--bg2);border-radius:10px;overflow:hidden;border:1px solid #111;
-    cursor:pointer;transition:transform .15s, box-shadow .15s;display:flex;flex-direction:column}
-  .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  .card{background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--border);
+    cursor:pointer;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s,border-color .25s;
+    display:flex;flex-direction:column;animation:fadeUp .5s ease backwards}
+  @keyframes fadeUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+  .card:nth-child(1){animation-delay:.02s}.card:nth-child(2){animation-delay:.06s}
+  .card:nth-child(3){animation-delay:.1s}.card:nth-child(4){animation-delay:.14s}
+  .card:nth-child(5){animation-delay:.18s}.card:nth-child(6){animation-delay:.22s}
+  .card:nth-child(7){animation-delay:.26s}.card:nth-child(8){animation-delay:.3s}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--accent)}
   .card .imgwrap{position:relative;aspect-ratio:16/10;background:#111;overflow:hidden}
-  .card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
-  .card:hover img{transform:scale(1.05)}
+  .card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .card:hover img{transform:scale(1.08)}
   .badge{position:absolute;top:8px;left:8px;font-size:.7rem;font-weight:700;
-    padding:3px 8px;border-radius:5px;color:#fff}
-  .badge.r{background:var(--red)} .badge.pf{background:#c9a800;color:#111} .badge.f{background:#2ea35c}
-  .price{position:absolute;top:8px;right:8px;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:5px}
-  .price.free{background:#2ea35c;color:#fff} .price.paid{background:#c9a800;color:#111} .price.vip{background:#9b59b6;color:#fff}
-  .card .info{padding:10px 12px;flex:1;display:flex;flex-direction:column;gap:4px}
-  .card .info h3{font-size:.95rem}
+    padding:4px 9px;border-radius:6px;color:#fff;backdrop-filter:blur(4px)}
+  .badge.r{background:rgba(237,66,69,.9)} .badge.pf{background:rgba(227,184,0,.92);color:#111}
+  .badge.f{background:rgba(59,165,93,.9)}
+  .price{position:absolute;top:8px;right:8px;font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:6px;
+    backdrop-filter:blur(4px)}
+  .price.free{background:rgba(59,165,93,.92);color:#fff}
+  .price.paid{background:rgba(227,184,0,.92);color:#111}
+  .price.vip{background:rgba(155,89,182,.92);color:#fff}
+  .card .info{padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:5px}
+  .card .info h3{font-size:.95rem;line-height:1.3}
   .card .info .meta{font-size:.78rem;color:var(--muted)}
   .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
-  .tag{font-size:.68rem;background:var(--bg3);border-radius:4px;padding:2px 6px;color:var(--muted)}
+  .tag{font-size:.68rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+    padding:2px 7px;color:var(--muted);transition:var(--tr)}
+  .card:hover .tag{border-color:var(--accent)}
 
-  /* ===== LIGHTBOX – pełny ekran ===== */
-  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:100;
-    flex-direction:column}
+  /* ===== LIGHTBOX ===== */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:100;flex-direction:column;
+    animation:fadeIn .25s ease}
   .lightbox.open{display:flex}
-  .lb-top{display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--bg3)}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .lb-top{display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--glass);backdrop-filter:blur(12px)}
   .lb-top h2{font-size:1rem;flex:1}
-  .lb-close{background:var(--red);color:#fff;border:none;border-radius:8px;
-    padding:8px 16px;cursor:pointer;font-weight:700}
+  .lb-close{background:var(--red);color:#fff;border:none;border-radius:10px;padding:9px 18px;
+    cursor:pointer;font-weight:700;transition:var(--tr)}
+  .lb-close:hover{transform:scale(1.05);box-shadow:0 0 16px rgba(237,66,69,.5)}
   .lb-body{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0}
-  .lb-body img{max-width:92%;max-height:100%;object-fit:contain;border-radius:8px}
+  .lb-body img{max-width:92%;max-height:100%;object-fit:contain;border-radius:12px;
+    animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
   .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);
-    border:none;color:#fff;font-size:2rem;width:52px;height:52px;border-radius:50%;
-    cursor:pointer;transition:.15s}
-  .lb-nav:hover{background:var(--accent)}
+    border:none;color:#fff;font-size:2rem;width:54px;height:54px;border-radius:50%;cursor:pointer;
+    transition:var(--tr);backdrop-filter:blur(6px)}
+  .lb-nav:hover{background:var(--accent);transform:translateY(-50%) scale(1.12)}
   .lb-prev{left:16px} .lb-next{right:16px}
   .lb-counter{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
-    background:rgba(0,0,0,.6);padding:4px 14px;border-radius:20px;font-size:.85rem}
-  .lb-bottom{padding:14px 20px;background:var(--bg3);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-  .lb-bottom .meta{flex:1;min-width:200px;font-size:.9rem}
-  .btn{border:none;border-radius:8px;padding:10px 18px;cursor:pointer;font-weight:700;
-    font-size:.9rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.15s}
-  .btn:hover{filter:brightness(1.15)}
+    background:rgba(0,0,0,.6);padding:5px 16px;border-radius:20px;font-size:.85rem}
+  .lb-bottom{padding:14px 20px;background:var(--glass);backdrop-filter:blur(12px);
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .lb-bottom .meta{flex:1;min-width:200px;font-size:.9rem;line-height:1.5}
+  .btn{border:none;border-radius:10px;padding:11px 20px;cursor:pointer;font-weight:700;font-size:.9rem;
+    text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all var(--tr)}
+  .btn:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.3)}
   .btn.model{background:#3ba55d;color:#fff}
-  .btn.model.buy{background:#c9a800;color:#111}
+  .btn.model.buy{background:#e3b800;color:#111}
   .btn.livery{background:var(--accent);color:#fff}
   .btn.livery.buy{background:#9b59b6;color:#fff}
   .btn.discord{background:#5865f2;color:#fff}
-  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0;font-size:1.1rem}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0;font-size:1.1rem;animation:fadeUp .4s ease}
+
+  /* ===== SKELETON LOADING ===== */
+  .skeleton{grid-column:span 1;background:var(--card);border-radius:14px;border:1px solid var(--border);
+    overflow:hidden;animation:fadeUp .3s ease}
+  .skeleton .sk-img{aspect-ratio:16/10;background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);
+    background-size:200% 100%;animation:shimmer 1.4s infinite}
+  @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+  .skeleton .sk-line{height:14px;margin:12px 14px;border-radius:6px;
+    background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
+  .skeleton .sk-line.short{width:60%}
 </style>
 <base target="_blank">
+<base target="_blank">
 </head>
-<body>
+<body data-theme="dark">
 
 <header>
-  <h1>🚌 Tech lakiernia OMSI 2 <span>– Podkarpacie</span></h1>
+  <div class="brand"><img src="logo.png" alt="Tech lakiernia" onerror="this.style.display='none'"> 🚌 Tech lakiernia OMSI 2 <span>– Podkarpacie</span></div>
   <div class="search">🔎 <input id="search" type="text" placeholder="Szukaj: przewoźnik, miasto, model… (całe Podkarpacie!)"></div>
+  <button class="theme-btn" id="themeBtn" title="Zmień motyw">🌙 <small id="themeLabel">ciemny</small></button>
 </header>
 
 <div class="filters">
@@ -117,8 +177,8 @@
   <span class="count" id="count"></span>
 </div>
 
-<!-- 🎯 REKLAMA DISCORDA – podmień link w DISCORD_URL na zaproszenie do swojego serwera -->
-<div class="discord-banner"><a id="discordBanner" href="https://discord.gg/MBTaed9db4" target="_blank">
+<!-- 🎯 REKLAMA DISCORDA -->
+<div class="discord-banner"><a id="discordBanner" href="#" target="_blank">
   <span class="logo">💬</span>
   <span><b>Dołącz do naszego Discorda!</b>
   <small>Pobierz malowania wcześniej, rozmawiaj o OMSI 2 i bierz udział w konkursach 🎨</small></span>
@@ -147,12 +207,32 @@
 
 <script>
 /* =========================================================
-   KONFIGURACJA – podmień na swoje!
+   KONFIGURACJA
 ========================================================= */
 const DATA_URL = "https://szymon-tech358.github.io/Tech-lakiernia/malowania.json";
-const DISCORD_URL = "https://discord.gg/MBTaed9db4";   // ← link do Twojego Discorda
+const DISCORD_URL = "https://discord.gg/MBTaed9db4";
 
-/* Awaryjne dane, gdyby nie było internetu */
+/* ===== TRYB JASNY / CIEMNY / SYSTEM ===== */
+const THEMES = ['dark','light','system'];
+let themeIdx = parseInt(localStorage.getItem('tl-theme') ?? '0');
+function applyTheme(){
+  const t = THEMES[themeIdx];
+  const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const eff = t === 'system' ? (sysDark ? 'dark' : 'light') : t;
+  document.body.dataset.theme = eff;
+  document.getElementById('themeBtn').firstChild.textContent = eff === 'dark' ? '🌙 ' : '☀️ ';
+  document.getElementById('themeLabel').textContent = t === 'system' ? 'system' : eff;
+  localStorage.setItem('tl-theme', themeIdx);
+}
+document.getElementById('themeBtn').addEventListener('click', ()=>{
+  themeIdx = (themeIdx + 1) % THEMES.length; applyTheme();
+});
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ()=>{
+  if(THEMES[themeIdx]==='system') applyTheme();
+});
+applyTheme();
+
+/* Awaryjne dane */
 const FALLBACK = [
   {
     "title": "Setra S221 UL V1.0 – Stalowa Wola",
@@ -166,13 +246,13 @@ const FALLBACK = [
       "Setra"
     ],
     "date": "2026-10-17",
-    "img": "https://i.imgur.com/L4cs2hI.png",
+    "img": "https://i.imgur.com/fiEbXdN.png",
     "images": [
-      "https://i.imgur.com/L4cs2hI.png",
-      "https://i.imgur.com/883lkDy.png",
-      "https://i.imgur.com/yFT68cz.png"
+      "https://i.imgur.com/fiEbXdN.png",
+      "https://i.imgur.com/nQF21Tu.png",
+      "https://i.imgur.com/r9EMPjb.png"
     ],
-    "modelUrl": "https://store.steampowered.com/app/3309690/OMSI_2_Addon_City__Regionbus_200_Series/",
+    "modelUrl": "https://strefa-omsi.pl/Waterk-Add-on-City-Regionbus-200-Series--29598",
     "liveryUrl": "https://www.mediafire.com/file/ro318pds0o8ugxf/City_RegionBus_S200-series.rar/file"
   },
   {
@@ -290,19 +370,19 @@ const FALLBACK = [
       "Setra",
       "Stalowa Wola"
     ],
-    "date": "2026-10-04",
-    "img": "https://i.imgur.com/B28yUOF.png",
+    "date": "2026-10-19",
+    "img": "LINK_OKLADKI.jpg",
     "images": [
-      "https://i.imgur.com/B28yUOF.png",
-      "https://i.imgur.com/TqchtZr.png"
+      "LINK1.jpg",
+      "LINK2.jpg",
+      "LINK3.jpg"
     ],
-    "modelUrl": "https://strefa-omsi.pl/Watek-OMSI-1-2-Setra-S-215-UL-v1-2-Modded--4543",
-    "liveryUrl": "https://www.mediafire.com/file/02ug38vgumgxjce/Setra_215UL.rar/file"
+    "modelUrl": "LINK_DO_MODELU",
+    "liveryUrl": "LINK_DO_POBRANIA"
   }
 ];
 
 let MALOWANIA = [];
-
 const REGIONS = ["Rzeszów","Przemyśl","Stalowa Wola","Mielec","Tarnobrzeg","Krosno","Sanok",
   "Jasło","Łańcut","Leżajsk","Nisko","Dębica","Ropczyce","Kolbuszowa","Brzozów",
   "Przeworsk","Jarosław","Ustrzyki Dolne","Boguchwała","Radymno"];
@@ -316,17 +396,10 @@ async function tryFetch(url){
   return r.json();
 }
 async function loadData(){
-  try{
-    // 1) dane z GitHuba (dla użytkowników .exe – zawsze świeże)
-    MALOWANIA = await tryFetch(DATA_URL);
-  }catch(e){
-    try{
-      // 2) lokalny plik malowania.json (test na kompie / python -m http.server)
-      MALOWANIA = await tryFetch("malowania.json");
-    }catch(e2){
-      // 3) dane wbudowane w stronę – zawsze coś pokaże
-      MALOWANIA = FALLBACK;
-    }
+  try{ MALOWANIA = await tryFetch(DATA_URL); }
+  catch(e){
+    try{ MALOWANIA = await tryFetch("malowania.json"); }
+    catch(e2){ MALOWANIA = FALLBACK; }
   }
   buildRegionSelect();
   render();
@@ -338,9 +411,9 @@ function buildRegionSelect(){
   [...new Set([...REGIONS, ...MALOWANIA.map(m=>m.region)])].sort().forEach(r=>{
     const o = document.createElement('option'); o.value = r; o.textContent = "🗺️ " + r; sel.appendChild(o);
   });
+  sel.value = activeRegion;
 }
 
-/* ====== PRZYCISKI ZALEŻNE OD TAGÓW ====== */
 function priceBadge(m){
   if(m.tags.includes("PM")) return '<span class="price vip">💜 VIP</span>';
   if(m.tags.includes("PA")) return '<span class="price paid">💰 Płatny model</span>';
@@ -348,17 +421,14 @@ function priceBadge(m){
 }
 function actionButtons(m){
   let html = '';
-  // MODEL AUTOBUSU
   if(m.tags.includes("DA"))
     html += `<a class="btn model" href="${m.modelUrl}" target="_blank">🚌 Pobierz model autobusu (darmowy)</a>`;
   else if(m.tags.includes("PA"))
     html += `<a class="btn model buy" href="${m.modelUrl}" target="_blank">🛒 Kup model autobusu</a>`;
-  // MALOWANIE
   if(m.tags.includes("DM"))
     html += `<a class="btn livery" href="${m.liveryUrl}" target="_blank">🎨 Pobierz malowanie (darmowe)</a>`;
   else if(m.tags.includes("PM"))
     html += `<a class="btn livery buy" href="${m.liveryUrl}" target="_blank">💜 Kup malowanie (VIP)</a>`;
-  // DISCORD
   html += `<a class="btn discord" href="${DISCORD_URL}" target="_blank">💬 Discord</a>`;
   return html;
 }
@@ -396,6 +466,12 @@ function render(){
   }).join('');
 }
 
+/* skeleton loading przy pierwszym ładowaniu */
+(function(){
+  const grid = document.getElementById('grid');
+  grid.innerHTML = Array.from({length:4}, ()=>'<div class="skeleton"><div class="sk-img"></div><div class="sk-line"></div><div class="sk-line short"></div></div>').join('');
+})();
+
 /* ===== LIGHTBOX ===== */
 function openLB(mi, ii){
   const m = MALOWANIA[mi];
@@ -409,7 +485,9 @@ function openLB(mi, ii){
   document.body.style.overflow = 'hidden';
 }
 function showImg(){
-  document.getElementById('lbImg').src = lb.items[lb.idx];
+  const im = document.getElementById('lbImg');
+  im.style.animation='none'; void im.offsetWidth; im.style.animation='';
+  im.src = lb.items[lb.idx];
   document.getElementById('lbCounter').textContent = (lb.idx+1) + " / " + lb.items.length;
 }
 function navLB(d){ lb.idx = (lb.idx + d + lb.items.length) % lb.items.length; showImg(); }
@@ -435,7 +513,6 @@ document.addEventListener('keydown', e=>{
 document.getElementById('lbImg').addEventListener('click', ()=>navLB(1));
 
 loadData();
-/* 🔄 auto-odświeżanie co 60 s */
 setInterval(loadData, 60000);
 </script>
 </body>
