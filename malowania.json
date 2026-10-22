@@ -115,14 +115,13 @@
       "Rzeszów"
     ],
     "date": "2026-10-19",
-    "img": "LINK_OKLADKI.jpg",
+    "img": "https://i.imgur.com/XSm7Rra.png",
     "images": [
-      "LINK1.jpg",
-      "LINK2.jpg",
-      "LINK3.jpg"
+      "https://i.imgur.com/XSm7Rra.png",
+      "https://i.imgur.com/5uRzA6F.png"
     ],
-    "modelUrl": "LINK_DO_MODELU",
-    "liveryUrl": "LINK_DO_POBRANIA"
+    "modelUrl": "https://strefa-omsi.pl/Watek-OMSI-2-Jelcz-PKS-Pack--30202",
+    "liveryUrl": "https://www.mediafire.com/file/33ql61r52kd1q27/Jelcz_PKS.rar/file"
   },
   {
     "title": "Setra S215 UL – Stalowa Wola",
