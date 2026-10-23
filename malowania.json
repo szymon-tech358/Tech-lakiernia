@@ -51,18 +51,17 @@
       "SOR",
       "Stalowa Wola"
     ],
-    "date": "2026-10-19",
-    "img": "LINK_OKLADKI.jpg",
+    "date": "2026-10-23",
+    "img": "https://i.imgur.com/REaADmZ.png",
     "images": [
-      "LINK1.jpg",
-      "LINK2.jpg",
-      "LINK3.jpg"
+      "https://i.imgur.com/REaADmZ.png",
+      "https://i.imgur.com/8zPAOmS.png"
     ],
-    "modelUrl": "LINK_DO_KUPNA_MODELU",
-    "liveryUrl": "LINK_DO_KUPNA_VIP"
+    "modelUrl": "https://discord.gg/MBTaed9db4",
+    "liveryUrl": "https://discord.gg/MBTaed9db4"
   },
   {
-    "title": "SOR C12 (2011+) Wersja A – Stalowa Wola",
+   "title": "SOR C12 (2011+) Wersja A – Stalowa Wola",
     "cat": "R",
     "region": "Stalowa Wola",
     "model": "SOR C12 (2011+) Wersja A (płatny)",
@@ -72,15 +71,14 @@
       "SOR",
       "Stalowa Wola"
     ],
-    "date": "2026-10-19",
-    "img": "LINK_OKLADKI.jpg",
+    "date": "2026-10-22",
+    "img": "https://i.imgur.com/rB1ypDv.png",
     "images": [
-      "LINK1.jpg",
-      "LINK2.jpg",
-      "LINK3.jpg"
+      "https://i.imgur.com/rB1ypDv.png",
+      "https://i.imgur.com/mb5PLY7.png"
     ],
-    "modelUrl": "LINK_DO_KUPNA_MODELU",
-    "liveryUrl": "LINK_DO_KUPNA_VIP"
+    "modelUrl": "https://discord.gg/MBTaed9db4",
+    "liveryUrl": "https://discord.gg/MBTaed9db4"
   },
   {
     "title": "Malowanie SOR CN12 – Stalowa Wola",
