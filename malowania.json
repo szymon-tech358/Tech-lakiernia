@@ -91,15 +91,14 @@
       "SOR",
       "Stalowa Wola"
     ],
-    "date": "2026-10-19",
-    "img": "LINK_OKLADKI.jpg",
+    "date": "2026-10-24",
+    "img": "https://i.imgur.com/12fvuMv.png",
     "images": [
-      "LINK1.jpg",
-      "LINK2.jpg",
-      "LINK3.jpg"
+      "https://i.imgur.com/12fvuMv.png",
+      "https://i.imgur.com/uLQXQVG.png"
     ],
-    "modelUrl": "LINK_DO_MODELU",
-    "liveryUrl": "LINK_DO_POBRANIA"
+    "modelUrl": "https://strefa-omsi.pl/Watek-OMSI-1-2-SOR-CN12-BN12--7453",
+    "liveryUrl": "https://www.mediafire.com/file/m5cnkkyke8sfa7a/SOR_XN12.rar/file"
   },
   {
     "title": "Jelcz T120 PreFL – Rzeszów",
